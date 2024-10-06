@@ -24,16 +24,24 @@ RUN addgroup -S reactgroup && adduser -S reactuser -G reactgroup
 COPY --from=build /react/build /usr/share/nginx/html
 
 # Copy custom NGINX config file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Change ownership of nginx html directory to non-root user
-RUN chown -R reactuser:reactgroup /usr/share/nginx/html
+# Change ownership of nginx directories to non-root user
+RUN chown -R reactuser:reactgroup /usr/share/nginx/html \
+    && chown -R reactuser:reactgroup /var/cache/nginx \
+    && chown -R reactuser:reactgroup /var/log/nginx \
+    && chown -R reactuser:reactgroup /etc/nginx/conf.d
 
-# Expose port 80
+# Create necessary directories and set permissions
+RUN mkdir -p /var/run/nginx /var/tmp/nginx \
+    && chown -R reactuser:reactgroup /var/run/nginx \
+    && chown -R reactuser:reactgroup /var/tmp/nginx
+
+# Expose port 8080 instead of 80 (to avoid root privileges)
 EXPOSE 80
 
 # Run NGINX as a non-root user
 USER reactuser
 
-# Command to start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+# Command to start NGINX with a custom PID path
+CMD ["nginx", "-g", "daemon off; pid /var/tmp/nginx/nginx.pid;"]
