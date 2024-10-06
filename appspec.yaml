@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:ap-northeast-1:223479137170:task-definition/react-tour-tf:1"
+        LoadBalancerInfo:
+          ContainerName: "tour-react"
+          ContainerPort: 80
