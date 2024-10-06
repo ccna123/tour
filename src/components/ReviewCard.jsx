@@ -6,7 +6,7 @@ export const ReviewCard = ({ item }) => {
       <div className="w-[5rem] h-[5rem] border-8 border-white mx-auto -mt-10 rounded-full">
         <img
           className="rounded-full w-full h-full object-cover"
-          src={require(`../assets/imgs/user${item}.jpg`)}
+          src={process.env.PUBLIC_URL + `images/user${item}.jpg`}
         />
       </div>
       <h1 className="text-[#3D8D9A] text-3xl text-center font-bold">

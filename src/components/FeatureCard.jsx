@@ -9,10 +9,10 @@ export const FeatureCard = ({ item }) => {
           className="rounded-t-md w-full"
           src={`${
             item === 1
-              ? require("../assets/imgs/hawaii.jpg")
+              ? process.env.PUBLIC_URL + "/images/hawaii.jpg"
               : item === 2
-              ? require("../assets/imgs/egypt.jpg")
-              : require("../assets/imgs/india.jpg")
+              ? process.env.PUBLIC_URL + "/images/egypt.jpg"
+              : process.env.PUBLIC_URL + "/images/india.jpg"
           } `}
         />
         <div className="absolute top-0 left-0 p-2">

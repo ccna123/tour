@@ -1,9 +1,14 @@
 import { BackToTopBtn } from "./components/BackToTopBtn";
 import { FeatureCard } from "./components/FeatureCard";
+import ImageModal from "./components/ImageModal";
 import { Nav } from "./components/Nav";
 import { ReviewCard } from "./components/ReviewCard";
-
+import { useState } from "react";
 function App() {
+  const [selectImage, setSelectImage] = useState(null);
+
+  console.log(selectImage);
+
   return (
     <div className="App overflow-hidden font-kalam">
       {/* back to top btn */}
@@ -13,7 +18,7 @@ function App() {
       <header className="relative">
         <video
           className="absolute w-[100%] h-[100%] object-cover top-0 left-0 -z-50"
-          src={require("./assets/imgs/ocean.mp4")}
+          src={process.env.PUBLIC_URL + "/images/ocean.mp4"}
           autoPlay
           muted
           loop
@@ -109,7 +114,7 @@ function App() {
           <span className="text-[#3D8D9A]">U</span>s
         </h1>
         <div className="grid lg:grid-cols-2 items-center">
-          <img src={require("./assets/imgs/travel.jpg")} />
+          <img src={process.env.PUBLIC_URL + "/images/travel.jpg"} />
           <div>
             <h1 className="text-[#3D8D9A] font-bold text-4xl lg:text-8xl text-center">
               Why Choose Us ?
@@ -149,10 +154,17 @@ function App() {
               <div className="relative group">
                 <img
                   className="rounded-lg w-full"
-                  src={require(`./assets/imgs/pic${item}.jpg`)}
+                  src={process.env.PUBLIC_URL + `/images/pic${item}.jpg`}
                   alt={`pic${item}`}
                 />
-                <div className="absolute w-full h-full flex flex-col items-center -bottom-10 rounded-lg justify-end bg-black/30 opacity-0 group-hover:opacity-100 group-hover:bottom-0 transition-all duration-300">
+                <div
+                  className="absolute w-full h-full flex flex-col items-center -bottom-10 rounded-lg justify-end bg-black/30 opacity-0 group-hover:opacity-100 group-hover:bottom-0 transition-all duration-300"
+                  onClick={() =>
+                    setSelectImage(
+                      `${process.env.PUBLIC_URL}/images/pic${item}.jpg`
+                    )
+                  }
+                >
                   <div className="text-white flex justify-around w-full text-4xl z-10 mb-5">
                     <i className="fas fa-heart cursor-pointer hover:text-pink-500" />
                     <i className="fas fa-share cursor-pointer hover:text-blue-500" />
@@ -163,6 +175,12 @@ function App() {
             </div>
           ))}
         </div>
+        {selectImage && (
+          <ImageModal
+            imageSrc={selectImage}
+            onClose={() => setSelectImage(null)}
+          />
+        )}
       </section>
       {/* end gallery */}
 
@@ -170,7 +188,7 @@ function App() {
       <section
         id="review"
         style={{
-          background: `linear-gradient(rgba(0, 152, 161, 0.7), rgba(0, 152, 161, 0.7)), url(${require("./assets/imgs/photographer.jpg")})`,
+          background: `linear-gradient(rgba(0, 152, 161, 0.7), rgba(0, 152, 161, 0.7)), url(${process.env.PUBLIC_URL}/images/photographer.jpg)`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -200,9 +218,9 @@ function App() {
           width="100%"
           height="450"
           style={{ border: "0", padding: "10px" }}
-          allowfullscreen=""
+          allowFullScreen=""
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade"
         />
         <div className="py-10 flex md:flex-row flex-col gap-4 justify-around">
           <div className="flex gap-2">
@@ -270,7 +288,9 @@ function App() {
       <section
         id="discount"
         style={{
-          backgroundImage: `url(${require("./assets/imgs/island.jpg")})`,
+          backgroundImage: `url(${
+            process.env.PUBLIC_URL + "/images/island.jpg"
+          })`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
