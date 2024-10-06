@@ -32,10 +32,10 @@ export const FeatureCard = ({ item }) => {
           <i className="fa-solid fa-star text-yellow-300"></i>
           <i className="fa-solid fa-star text-yellow-300"></i>
         </div>
-        <div className="text-center py-4">
+        <div className="text-center py-4 ">
           <button
             type="button"
-            className="bg-[#6DB2B9] text-white rounded-md px-4 py-1"
+            className="bg-[#6DB2B9] text-white rounded-md px-4 py-1 hover:bg-slate-300 hover:text-black hover:scale-105 duration-300"
           >
             Check Out !
           </button>
