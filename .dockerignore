@@ -1,0 +1,7 @@
+.git*
+README.md
+/public/logo*
+src/App.test.js
+src/logo.svg
+src/setupTest.js
+src/logo.svg
