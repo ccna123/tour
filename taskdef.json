@@ -89,6 +89,5 @@
         "operatingSystemFamily": "LINUX"
     },
     "registeredAt": "2024-10-11T01:07:47.604Z",
-    "registeredBy": "arn:aws:sts::223479137170:assumed-role/demo-pipeline-role/1728608867235",
-    "tags": []
+    "registeredBy": "arn:aws:sts::223479137170:assumed-role/demo-pipeline-role/1728608867235"
 }
