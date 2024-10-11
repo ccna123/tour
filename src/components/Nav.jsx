@@ -39,7 +39,7 @@ export const Nav = () => {
       <div className="w-fit h-fit flex items-center">
         <img
           className="w-[128px] h-[64px]"
-          src={require("../assets/imgs/logo.png")}
+          src={process.env.PUBLIC_URL + "images/logo.png"}
         />
       </div>
       <div
