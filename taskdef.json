@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "react-tour",
-            "image": "223479137170.dkr.ecr.ap-northeast-1.amazonaws.com/thanh/local:066ea68",
+            "image": "<IMAGE_NAME>",
             "cpu": 0,
             "portMappings": [
                 {
