@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: NGINX to serve the React app
-FROM nginx:stable-alpine
+FROM public.ecr.aws/nginx/nginx:stable-alpine
 
 # Copy the built React app from the build stage
 COPY --from=build /react/build /usr/share/nginx/html
