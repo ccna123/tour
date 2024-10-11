@@ -2,19 +2,14 @@ version: 0.2
 
 phases:
   install:
-    # runtime-versions:
-    #   nodejs: latest
     commands:
       - printenv
-      # - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
-      # - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
       - echo Log in to Amazon ECR YAML Custom...
       - aws --version
       - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 223479137170.dkr.ecr.ap-northeast-1.amazonaws.com
       - REPOSITORY_URI=223479137170.dkr.ecr.ap-northeast-1.amazonaws.com/thanh/local
-      # please update [AWS_ACCOUNT_ID] & [REPO_NAME] & AWS_REGION based on your setup
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -28,7 +23,52 @@ phases:
       - echo Build completed on `date`
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo write definitions file...
+      - echo write image definitions file...
       - printf '[{"name":"react-tour","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - echo write task definition file...
+      - printf '{
+          "family": "react-tf",
+          "containerDefinitions": [
+            {
+              "name": "react-tour",
+              "image": "%s",
+              "cpu": 0,
+              "portMappings": [
+                {
+                  "name": "nginx-port",
+                  "containerPort": 80,
+                  "hostPort": 80,
+                  "protocol": "tcp",
+                  "appProtocol": "http"
+                }
+              ],
+              "essential": true,
+              "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                  "awslogs-group": "/ecs/react-tf",
+                  "awslogs-region": "ap-northeast-1",
+                  "awslogs-stream-prefix": "ecs"
+                }
+              }
+            }
+          ],
+          "taskRoleArn": "arn:aws:iam::223479137170:role/ecsTaskExecutionRole",
+          "executionRoleArn": "arn:aws:iam::223479137170:role/ecsTaskExecutionRole",
+          "networkMode": "awsvpc",
+          "cpu": "512",
+          "memory": "1024",
+          "requiresCompatibilities": ["FARGATE"],
+          "runtimePlatform": {
+            "cpuArchitecture": "X86_64",
+            "operatingSystemFamily": "LINUX"
+          }
+        }' $REPOSITORY_URI:$IMAGE_TAG > taskdef.json
+      - echo write appspec file...
+      - printf 'version: 0.0\nResources:\n  - TargetService:\n      Type: AWS::ECS::Service\n      Properties:\n        TaskDefinition: "PLACEHOLDER"\n        LoadBalancerInfo:\n          ContainerName: "react-tour"\n          ContainerPort: 80\n' > appspec.yaml
+
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
+    - taskdef.json
+    - appspec.yaml
