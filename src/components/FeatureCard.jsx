@@ -4,16 +4,15 @@ import { Discount } from "./Discount";
 export const FeatureCard = ({ item }) => {
   return (
     <div className="p-4">
-      <div className="rounded-md relative shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+      <div className="rounded-md relative shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:scale-105 duration-150">
         <img
           className="rounded-t-md w-full"
-          src={`${
-            item === 1
+          src={`${item === 1
               ? process.env.PUBLIC_URL + "/images/hawaii.jpg"
               : item === 2
-              ? process.env.PUBLIC_URL + "/images/egypt.jpg"
-              : process.env.PUBLIC_URL + "/images/india.jpg"
-          } `}
+                ? process.env.PUBLIC_URL + "/images/egypt.jpg"
+                : process.env.PUBLIC_URL + "/images/india.jpg"
+            } `}
         />
         <div className="absolute top-0 left-0 p-2">
           <Discount />

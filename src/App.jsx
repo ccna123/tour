@@ -82,7 +82,7 @@ function App() {
                 </div>
                 <button
                   type="button"
-                  className="bg-[#3D8D9A] focus:outline-none w-full rounded-md px-4 lg:text-4xl hover:bg-white hover:text-[#3D8D9A] hover:border-[#3D8D9A] border-2 duration-150 py-1 text-white font-bold my-4"
+                  className="bg-[#3D8D9A] focus:outline-none w-full rounded-md px-4 lg:text-4xl hover:bg-white hover:text-[#3D8D9A] hover:border-[#3D8D9A] hover:scale-105 border-2 duration-150 py-1 text-white font-bold my-4"
                 >
                   Search
                 </button>
@@ -288,9 +288,8 @@ function App() {
       <section
         id="discount"
         style={{
-          backgroundImage: `url(${
-            process.env.PUBLIC_URL + "/images/island.jpg"
-          })`,
+          backgroundImage: `url(${process.env.PUBLIC_URL + "/images/island.jpg"
+            })`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
