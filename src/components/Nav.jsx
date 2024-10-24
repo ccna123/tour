@@ -25,15 +25,15 @@ export const Nav = () => {
     { link: "Gallery", href: "#gallery" },
     { link: "Review", href: "#review" },
     { link: "Contact", href: "#contact" },
+    { link: "V2", href: "#" },
   ];
   return (
     <nav
       className={`z-50 relative max-w-full rounded-md flex justify-between p-2 mt-4 items-center mx-2
-      ${
-        scrolling
+      ${scrolling
           ? "bg-[#3D8D9A] text-white mx-0 mt-0 transition-all ease-out duration-150"
           : "bg-white"
-      }
+        }
     `}
     >
       <div className="w-fit h-fit flex items-center">
@@ -43,23 +43,20 @@ export const Nav = () => {
         />
       </div>
       <div
-        className={`absolute lg:static  w-[97%] transition-all ease-in duration-500 ${
-          openMenu
+        className={`absolute lg:static  w-[97%] transition-all ease-in duration-500 ${openMenu
             ? "top-24 opacity-100"
             : "-top-[1000px] md:opacity-100 opacity-0"
-        }`}
+          }`}
       >
         <ul
-          className={`lg:flex lg:justify-end lg:gap-4 font-bold lg:p-0 p-5 rounded-lg ${
-            scrolling ? "bg-[#3D8D9A] text-white" : "bg-white"
-          }`}
+          className={`lg:flex lg:justify-end lg:gap-4 font-bold lg:p-0 p-5 rounded-lg ${scrolling ? "bg-[#3D8D9A] text-white" : "bg-white"
+            }`}
         >
           {Links.map((link, index) => (
             <li
               key={index}
-              className={`hover:text-[#6DB2B9] lg:border-b-0 border-b-2 md:mr-2 text-2xl cursor-pointer lg:text-4xl duration-150 my-4 lg:p-0 p-4 ${
-                scrolling ? "hover:text-black" : "lg:hover:bg-white"
-              } rounded-lg`}
+              className={`hover:text-[#6DB2B9] lg:border-b-0 border-b-2 md:mr-2 text-2xl cursor-pointer lg:text-4xl duration-150 my-4 lg:p-0 p-4 ${scrolling ? "hover:text-black" : "lg:hover:bg-white"
+                } rounded-lg`}
             >
               <a href={link.href}>{link.link}</a>
             </li>
