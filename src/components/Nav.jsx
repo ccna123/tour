@@ -25,6 +25,7 @@ export const Nav = () => {
     { link: "Gallery", href: "#gallery" },
     { link: "Review", href: "#review" },
     { link: "Contact", href: "#contact" },
+    { link: "V2", href: "#contact" },
   ];
   return (
     <nav
