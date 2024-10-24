@@ -25,7 +25,6 @@ export const Nav = () => {
     { link: "Gallery", href: "#gallery" },
     { link: "Review", href: "#review" },
     { link: "Contact", href: "#contact" },
-    { link: "V2", href: "#" },
   ];
   return (
     <nav
@@ -44,8 +43,8 @@ export const Nav = () => {
       </div>
       <div
         className={`absolute lg:static  w-[97%] transition-all ease-in duration-500 ${openMenu
-            ? "top-24 opacity-100"
-            : "-top-[1000px] md:opacity-100 opacity-0"
+          ? "top-24 opacity-100"
+          : "-top-[1000px] md:opacity-100 opacity-0"
           }`}
       >
         <ul
